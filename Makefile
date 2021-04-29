@@ -49,10 +49,10 @@ test-unit: start-docker-test
 	@go test -mod=readonly -v -coverprofile coverage.txt ./...
 
 lint:
-	$(DOCKER) run --rm -v $(CURDIR):/app -w /app golangci/golangci-lint:v1.28.0 golangci-lint run --out-format=tab
+	golangci-lint run --out-format=tab
 
 lint-fix:
-	$(DOCKER) run --rm -v $(CURDIR):/app -w /app golangci/golangci-lint:v1.28.0 golangci-lint run --fix --out-format=tab --issues-exit-code=0
+	golangci-lint run --fix --out-format=tab --issues-exit-code=0
 .PHONY: lint lint-fix
 
 format:

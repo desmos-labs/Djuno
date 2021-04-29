@@ -13,24 +13,24 @@ import (
 
 // SavePost allows to store the given post inside the database properly.
 func (db DesmosDb) SavePost(post poststypes.Post) error {
-	log.Info().Str("module", "posts").Str("post_id", post.PostID).Msg("saving post")
+	log.Info().Str("module", "posts").Str("post_id", post.PostId).Msg("saving post")
 
 	err := db.savePostContent(post)
 	if err != nil {
 		return err
 	}
 
-	err = db.saveOptionalData(post.PostID, post.OptionalData)
+	err = db.saveOptionalData(post.PostId, post.OptionalData)
 	if err != nil {
 		return err
 	}
 
-	err = db.saveAttachments(post.PostID, post.Attachments)
+	err = db.saveAttachments(post.PostId, post.Attachments)
 	if err != nil {
 		return err
 	}
 
-	err = db.savePollData(post.PostID, post.PollData)
+	err = db.savePollData(post.PostId, post.PollData)
 	if err != nil {
 		return err
 	}
@@ -53,13 +53,13 @@ func (db DesmosDb) savePostContent(post poststypes.Post) error {
 
 	// Convert the parent id string
 	var parentID sql.NullString
-	if len(post.ParentID) > 0 {
-		parentID = sql.NullString{Valid: true, String: post.ParentID}
+	if len(post.ParentId) > 0 {
+		parentID = sql.NullString{Valid: true, String: post.ParentId}
 	}
 
 	_, err = db.Sql.Exec(
 		stmt,
-		post.PostID, parentID, post.Message, post.Created, post.LastEdited, post.AllowsComments,
+		post.PostId, parentID, post.Message, post.Created, post.LastEdited, post.AllowsComments,
 		post.Subspace, post.Creator, false,
 	)
 	return err

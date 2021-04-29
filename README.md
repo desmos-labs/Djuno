@@ -1,5 +1,4 @@
 # Djuno
-
 [![Codecov](https://img.shields.io/codecov/c/github/desmos-labs/djuno)](https://codecov.io/gh/desmos-labs/djuno)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/desmos-labs/djuno/Tests)](https://github.com/desmos-labs/djuno/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/desmos-labs/djuno)](https://goreportcard.com/report/github.com/desmos-labs/djuno)
@@ -12,30 +11,28 @@ the needed data inside a [PostgreSQL](https://www.postgresql.org/) database on t
 which [GraphQL](https://graphql.org/) APIs can then be created using [Hasura](https://hasura.io/)
 
 ## Installation
-
 To install the binary simply run `make install`.
 
 **Note**: Requires [Go 1.13+](https://golang.org/dl/)
 
 ## Database
-
 Before running the parser, you need to:
 
 1. Create a [PostgreSQL](https://www.postgresql.org/) database.
 2. Run the SQL queries you find inside the `*.sql` files in the [schema folder](schema) inside such database to create
    all the necessary tables.
 
-## Running the parser
+## Initialize the config
+First of all, initialize DJuno configuration file by running
 
-To parse the chain state, you need to use the following command:
-
-```shell
-djuno parse <path/to/config.toml>
-
-# Example
-# djuno parse config.toml 
+```
+djuno init
 ```
 
+This will create a folder inside your home folder. In Linux this will be located at `~/.djuno`. Inside such folder you
+will find a `config.toml` file. Make sure you edit that file to have all the values that it needs.
+
+### Configuration
 The configuration must be a TOML file containing the following fields:
 
 ```toml
@@ -70,7 +67,9 @@ user = "<db-user>"
 password = "<db-password>"
 ```
 
-Example of a configuration to parse the chain state from a local full-node:
+<details> 
+
+<summary>Example of a configuration to parse the chain state from a local full-node:</summary>
 
 ```toml
 [cosmos]
@@ -102,4 +101,13 @@ port = 5432
 user = "user"
 password = "password"
 name = "djuno"
+```
+
+</details>
+
+## Running the parser
+To parse the chain state, you need to use the following command:
+
+```shell
+djuno parse 
 ```

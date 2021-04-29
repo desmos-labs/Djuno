@@ -3,8 +3,9 @@ package database
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/desmos-labs/juno/config"
+	"github.com/cosmos/cosmos-sdk/simapp/params"
+	juno "github.com/desmos-labs/juno/types"
+
 	"github.com/desmos-labs/juno/db"
 	"github.com/desmos-labs/juno/db/postgresql"
 	"github.com/jmoiron/sqlx"
@@ -27,14 +28,8 @@ func Cast(database db.Database) *DesmosDb {
 }
 
 // Builder allows to create a new DesmosDb instance implementing the database.Builder type
-func Builder(cfg *config.Config, codec *codec.LegacyAmino) (db.Database, error) {
-	psqlConfg, ok := cfg.DatabaseConfig.Config.(*config.PostgreSQLConfig)
-	if !ok {
-		// TODO: Support MongoDB
-		return nil, fmt.Errorf("mongodb configuration is not supported on Djuno")
-	}
-
-	database, err := postgresql.Builder(psqlConfg, codec)
+func Builder(cfg *juno.Config, encodingConfig *params.EncodingConfig) (db.Database, error) {
+	database, err := postgresql.Builder(cfg.Database, encodingConfig)
 	if err != nil {
 		return nil, err
 	}

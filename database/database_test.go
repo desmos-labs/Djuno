@@ -8,11 +8,12 @@ import (
 	"testing"
 	"time"
 
+	juno "github.com/desmos-labs/juno/types"
+
 	poststypes "github.com/desmos-labs/desmos/x/posts/types"
 
 	desmosapp "github.com/desmos-labs/desmos/app"
 	"github.com/desmos-labs/djuno/database"
-	jconfig "github.com/desmos-labs/juno/config"
 	"github.com/stretchr/testify/suite"
 
 	_ "github.com/proullon/ramsql/driver"
@@ -33,24 +34,19 @@ func (suite *DbTestSuite) SetupTest() {
 	// Setup test data
 	suite.setupTestData()
 
-	// Create the codec
-	_, codec := desmosapp.MakeCodecs()
-
 	// Build the database
-	config := &jconfig.Config{
-		DatabaseConfig: &jconfig.DatabaseConfig{
-			Type: "psql",
-			Config: &jconfig.PostgreSQLConfig{
-				Name:     "juno",
-				Host:     "localhost",
-				Port:     5433,
-				User:     "juno",
-				Password: "password",
-			},
+	config := &juno.Config{
+		Database: &juno.DatabaseConfig{
+			Name:     "juno",
+			Host:     "localhost",
+			Port:     5433,
+			User:     "juno",
+			Password: "password",
 		},
 	}
 
-	db, err := database.Builder(config, codec)
+	encodingCfg := desmosapp.MakeTestEncodingConfig()
+	db, err := database.Builder(config, &encodingCfg)
 	suite.Require().NoError(err)
 
 	desmosDb, ok := (db).(*database.DesmosDb)

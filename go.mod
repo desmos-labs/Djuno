@@ -6,17 +6,15 @@ require (
 	cloud.google.com/go v0.55.0 // indirect
 	cloud.google.com/go/firestore v1.1.1 // indirect
 	firebase.google.com/go v3.12.0+incompatible
-	github.com/cosmos/cosmos-sdk v0.40.0-rc4
-	github.com/desmos-labs/desmos v0.14.1-0.20201210143431-377da56e3e12
-	github.com/desmos-labs/juno v0.0.0-20201209082915-17b5f3e771be
-	github.com/go-co-op/gocron v0.3.3
+	github.com/cosmos/cosmos-sdk v0.42.4
+	github.com/desmos-labs/desmos v0.15.5-0.20210326121423-2f2e8049808e
+	github.com/desmos-labs/juno v0.0.0-20210429060016-6548afd78e72
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/proullon/ramsql v0.0.0-20181213202341-817cee58a244
-	github.com/rs/zerolog v1.18.0
-	github.com/spf13/cobra v1.1.1
+	github.com/rs/zerolog v1.20.0
 	github.com/spf13/viper v1.7.1
-	github.com/stretchr/testify v1.6.1
-	github.com/tendermint/tendermint v0.34.0-rc6
+	github.com/stretchr/testify v1.7.0
+	github.com/tendermint/tendermint v0.34.9
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	golang.org/x/tools v0.0.0-20200321224714-0d839f3cf2ed // indirect
 	google.golang.org/api v0.20.0
